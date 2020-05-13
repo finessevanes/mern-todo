@@ -23,8 +23,10 @@ const CreateTodo = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    type === "checkbox"
+      ? setState((prevState) => ({ ...prevState, [name]: checked }))
+      : setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -43,6 +45,8 @@ const CreateTodo = () => {
         <div className="form-group">
           <label>Description: </label>
           <input
+            type="text"
+            className="form-control"
             name="description"
             value={description}
             onChange={handleChange}
@@ -50,16 +54,56 @@ const CreateTodo = () => {
         </div>
         <div className="form-group">
           <label>Responsible: </label>
-
           <input
+            className="form-control"
             value={responsible}
             name="responsible"
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label>Priority: </label>
-          <input value={priority} name="priority" onChange={handleChange} />
+          <div className="form-check form-check-inline">
+            <label className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="priority"
+                id="priorityLow"
+                value="Low"
+                checked={priority === "Low"}
+                onChange={handleChange}
+              />
+              Low
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <label className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="priority"
+                id="priorityMedium"
+                value="Medium"
+                checked={priority === "Medium"}
+                onChange={handleChange}
+              />
+              Medium
+            </label>
+          </div>
+          <div className="form-check form-check-inline">
+            <label className="form-check-label">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="priority"
+                id="priorityHigh"
+                value="High"
+                checked={priority === "High"}
+                onChange={handleChange}
+              />
+              High
+            </label>
+          </div>
         </div>
         <div className="form-group">
           <label>Completed: </label>
@@ -70,7 +114,7 @@ const CreateTodo = () => {
             onChange={handleChange}
           />
         </div>
-        <input type="submit" value="Save" />
+        <input type="submit" value="Save" className="btn btn-primary" />
       </form>
     </div>
   );
